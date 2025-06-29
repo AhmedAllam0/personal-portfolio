@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmed Allam | مسوق رقمي ومبدع محتوى</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Cairo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Chart.js for beautiful charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Apply custom font and theme styles */
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #0c0a18; /* A deep, dark blue/purple */
+            color: #e0e0e0;
+            scroll-behavior: smooth;
+        }
+        
+        /* Gradient text effect */
+        .gradient-text {
+            background: linear-gradient(to right, #22d3ee, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Glassmorphism card effect */
+        .glass-card {
+            background: rgba(23, 23, 38, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border: 1px solid rgba(34, 211, 238, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Background glowing effect */
+        .glow-bg {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.15) 0%, rgba(34, 211, 238, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            transition: all 0.5s ease;
+        }
+
+        /* Section scroll margin */
+        .section {
+            scroll-margin-top: 80px;
+        }
+        
+        /* Modal styles */
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+        
+        /* On-scroll animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* My Process Section Styles */
+        .process-line {
+            position: absolute;
+            left: 50%;
+            width: 2px;
+            background-color: rgba(34, 211, 238, 0.3);
+            z-index: -1;
+            height: 100%;
+        }
+        .process-line-progress {
+            width: 100%;
+            background: linear-gradient(to bottom, #22d3ee, #818cf8);
+            height: 0;
+            transition: height 1s ease-out;
+        }
+        .process-item {
+            position: relative;
+        }
+        .process-dot {
+            position: absolute;
+            top: 1.25rem; /* align with h3 */
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #0c0a18;
+            border: 3px solid #22d3ee;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        .process-item:nth-child(odd) {
+            padding-right: calc(50% + 30px);
+            text-align: left;
+        }
+        .process-item:nth-child(even) {
+            padding-left: calc(50% + 30px);
+            text-align: right;
+        }
+        
+        /* FAQ Section Styles */
+        .faq-item .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .faq-item.open .faq-answer {
+            max-height: 500px; /* a large enough value */
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .faq-item .faq-icon {
+            transition: transform 0.3s ease;
+        }
+        .faq-item.open .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Smart Header */
+        header.scrolled {
+            background-color: rgba(12, 10, 24, 0.8);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="relative overflow-x-hidden">
+
+    <!-- Glowing background elements -->
+    <div id="glow1" class="glow-bg top-[-100px] left-[-150px]"></div>
+    <div id="glow2" class="glow-bg bottom-[-200px] right-[-200px]"></div>
+
+    <!-- =========== Header =========== -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-black gradient-text">Ahmed Allam</a>
+            <div class="hidden md:flex items-center space-x-8 space-x-reverse">
+                <a href="#process" class="hover:text-cyan-300 transition-colors duration-300">منهجية عملي</a>
+                <a href="#services" class="hover:text-cyan-300 transition-colors duration-300">خدماتي</a>
+                <a href="#portfolio" class="hover:text-cyan-300 transition-colors duration-300">أعمالي</a>
+                <a href="#faq" class="hover:text-cyan-300 transition-colors duration-300">أسئلة شائعة</a>
+            </div>
+            <a href="#contact" class="hidden md:inline-block bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-6 rounded-lg transition-all transform hover:scale-105">
+                لنتحدث عن مشروعك
+            </a>
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-md hover:bg-white/10">
+                <i data-lucide="menu" class="text-white"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black/50 backdrop-blur-lg">
+             <div class="flex flex-col items-center space-y-4 py-4">
+                <a href="#process" class="hover:text-cyan-300 transition-colors duration-300">منهجية عملي</a>
+                <a href="#services" class="hover:text-cyan-300 transition-colors duration-300">خدماتي</a>
+                <a href="#portfolio" class="hover:text-cyan-300 transition-colors duration-300">أعمالي</a>
+                <a href="#faq" class="hover:text-cyan-300 transition-colors duration-300">أسئلة شائعة</a>
+                <a href="#contact" class="w-11/12 text-center bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-6 rounded-lg transition-all transform hover:scale-105">
+                    لنتحدث عن مشروعك
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 pt-24 relative z-10">
+
+        <!-- =========== Hero Section =========== -->
+        <section id="hero" class="section min-h-screen flex items-center justify-center text-center">
+            <div class="max-w-4xl flex flex-col items-center">
+                <div class="mb-8 reveal">
+                    <div class="w-32 h-32 rounded-full p-1 bg-gradient-to-tr from-cyan-500 to-indigo-500">
+                         <img src="https://placehold.co/128x128/0c0a18/FFFFFF?text=AA" alt="صورة شخصية لـ Ahmed Allam" class="w-full h-full rounded-full object-cover">
+                    </div>
+                </div>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-4 reveal" style="transition-delay: 100ms;">
+                    أحوّل الانتباه إلى <span class="gradient-text">اهتمام وولاء</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8 reveal" style="transition-delay: 200ms;">
+                    مسوق رقمي طموح، متخصص في صناعة المحتوى الذي يخاطب الجمهور وإدارة الحملات الإعلانية التي تحقق النتائج. أدمج بين الإبداع والتحليل لبناء علامات تجارية قوية ومؤثرة في العالم الرقمي.
+                </p>
+                <div class="flex justify-center items-center gap-4 reveal" style="transition-delay: 300ms;">
+                    <a href="#portfolio" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105">
+                        شاهد تأثيري
+                    </a>
+                    <a href="#contact" class="border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105">
+                        تواصل معي
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== Stats Section =========== -->
+        <section id="stats" class="section py-20">
+            <h2 class="text-4xl font-bold text-center mb-4">نتائج تتحدث عن نفسها</h2>
+            <p class="text-center text-gray-400 text-lg mb-12">نمو استثنائي تم تحقيقه في <span class="font-bold text-cyan-400">16 يوماً فقط</span> (11 - 27 يونيو)</p>
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                <!-- Stats Cards -->
+                <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div class="glass-card p-6 rounded-2xl text-center reveal">
+                        <i data-lucide="eye" class="w-12 h-12 mx-auto mb-3 text-cyan-400"></i>
+                        <p class="text-4xl font-black gradient-text" data-count="2300000">0</p>
+                        <h3 class="text-lg font-semibold mt-2 text-white">مشاهدة</h3>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl text-center reveal" style="transition-delay: 100ms;">
+                        <i data-lucide="heart" class="w-12 h-12 mx-auto mb-3 text-cyan-400"></i>
+                        <p class="text-4xl font-black gradient-text" data-count="139000">0</p>
+                        <h3 class="text-lg font-semibold mt-2 text-white">إعجاب</h3>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl text-center reveal" style="transition-delay: 200ms;">
+                        <i data-lucide="user-check" class="w-12 h-12 mx-auto mb-3 text-cyan-400"></i>
+                        <p class="text-4xl font-black gradient-text" data-count="19000">0</p>
+                        <h3 class="text-lg font-semibold mt-2 text-white">مشاهدة للملف</h3>
+                    </div>
+                    <div class="glass-card p-6 rounded-2xl text-center reveal" style="transition-delay: 300ms;">
+                        <i data-lucide="share-2" class="w-12 h-12 mx-auto mb-3 text-cyan-400"></i>
+                        <p class="text-4xl font-black gradient-text" data-count="19000">0</p>
+                        <h3 class="text-lg font-semibold mt-2 text-white">مشاركة</h3>
+                    </div>
+                </div>
+                <!-- Chart -->
+                <div class="lg:col-span-3 glass-card p-4 sm:p-6 rounded-2xl reveal" style="transition-delay: 400ms;">
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== My Process Section =========== -->
+        <section id="process" class="section py-20">
+            <h2 class="text-4xl font-bold text-center mb-16">منهجية عملي</h2>
+            <div class="relative max-w-4xl mx-auto">
+                <div class="process-line">
+                    <div id="process-line-progress" class="process-line-progress"></div>
+                </div>
+                <div class="space-y-16">
+                    <div class="process-item reveal">
+                        <div class="process-dot"></div>
+                        <h3 class="text-2xl font-bold mb-2 text-cyan-400">1. الاستكشاف والتحليل</h3>
+                        <p class="text-gray-400">نبدأ بجلسة عميقة لفهم مشروعك، أهدافك، جمهورك، ومنافسيك. هذه المرحلة هي الأساس الذي نبني عليه كل شيء.</p>
+                    </div>
+                    <div class="process-item reveal">
+                         <div class="process-dot"></div>
+                        <h3 class="text-2xl font-bold mb-2 text-cyan-400">2. بناء الاستراتيجية</h3>
+                        <p class="text-gray-400">بناءً على التحليل، أضع استراتيجية تسويقية مخصصة، نحدد فيها الرسائل الرئيسية، المنصات الأنسب، والمؤشرات الرئيسية لقياس النجاح.</p>
+                    </div>
+                    <div class="process-item reveal">
+                         <div class="process-dot"></div>
+                        <h3 class="text-2xl font-bold mb-2 text-cyan-400">3. التنفيذ والإبداع</h3>
+                        <p class="text-gray-400">هنا يتحول التخطيط إلى واقع. أقوم بصناعة المحتوى، إطلاق الحملات الإعلانية، وإدارة حساباتك بإبداع واحترافية.</p>
+                    </div>
+                    <div class="process-item reveal">
+                         <div class="process-dot"></div>
+                        <h3 class="text-2xl font-bold mb-2 text-cyan-400">4. القياس والتحسين</h3>
+                        <p class="text-gray-400">التسويق عملية مستمرة. أقوم بمراقبة أداء الحملات باستمرار، تحليل النتائج، وتقديم تقارير واضحة مع توصيات للتحسين المستمر.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- =========== Services Section =========== -->
+        <section id="services" class="section py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">كيف يمكنني مساعدتك؟</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                 <div class="glass-card p-8 rounded-2xl text-center reveal">
+                    <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-cyan-900/30 flex items-center justify-center">
+                        <i data-lucide="file-text" class="w-10 h-10 text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">صناعة المحتوى التسويقي</h3>
+                    <p class="text-gray-400">كتابة محتوى جذاب ومؤثر يخاطب جمهورك المستهدف ويحقق أهدافك، من المنشورات إلى المقالات والسكربتات.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center reveal" style="transition-delay: 150ms;">
+                    <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-cyan-900/30 flex items-center justify-center">
+                        <i data-lucide="thumbs-up" class="w-10 h-10 text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">إدارة حسابات التواصل</h3>
+                    <p class="text-gray-400">بناء حضور قوي وتفاعلي لعلامتك التجارية على المنصات المختلفة، وتنمية مجتمع مخلص من المتابعين.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center reveal" style="transition-delay: 300ms;">
+                     <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-cyan-900/30 flex items-center justify-center">
+                        <i data-lucide="megaphone" class="w-10 h-10 text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">الحملات الإعلانية</h3>
+                    <p class="text-gray-400">تصميم وإدارة حملات إعلانية مدفوعة على فيسبوك، تيك توك، وغيرها من المنصات الرائدة لتحقيق أفضل عائد.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- =========== Why Me? Section =========== -->
+        <section id="why-me" class="section py-20">
+             <h2 class="text-4xl font-bold text-center mb-12">لماذا تختارني؟</h2>
+             <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                 <div class="glass-card p-8 rounded-2xl text-center reveal">
+                    <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-cyan-900/30 flex items-center justify-center">
+                        <i data-lucide="database-zap" class="w-10 h-10 text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">استراتيجية قائمة على البيانات</h3>
+                    <p class="text-gray-400">أنا لا أعتمد على التخمين. كل قرار تسويقي أتخذه مدعوم بالبيانات والتحليلات لضمان أقصى فعالية ممكنة.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center reveal" style="transition-delay: 150ms;">
+                    <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-cyan-900/30 flex items-center justify-center">
+                        <i data-lucide="wand-2" class="w-10 h-10 text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">إبداع يتجاوز المألوف</h3>
+                    <p class="text-gray-400">أبحث دائماً عن الأفكار الجديدة والمبتكرة التي تجعل علامتك التجارية تتميز وتترك بصمة لا تُنسى في أذهان الجمهور.</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl text-center reveal" style="transition-delay: 300ms;">
+                     <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-cyan-900/30 flex items-center justify-center">
+                        <i data-lucide="handshake" class="w-10 h-10 text-cyan-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">شريك، وليس مجرد منفذ</h3>
+                    <p class="text-gray-400">أعتبر نجاح مشروعك نجاحاً شخصياً لي. أعمل معك جنباً إلى جنب كشريك حقيقي لتحقيق رؤيتك وأهدافك.</p>
+                </div>
+             </div>
+        </section>
+
+        <!-- =========== Portfolio Section =========== -->
+        <section id="portfolio" class="section py-20">
+             <h2 class="text-4xl font-bold text-center mb-12">أثر ملموس: مشاريع أفتخر بها</h2>
+             <div class="grid md:grid-cols-2 gap-8">
+                 <div class="glass-card rounded-2xl overflow-hidden group reveal">
+                    <img src="https://placehold.co/600x400/0c0a18/1877F2?text=Facebook" alt="صورة مشروع صفحة فيسبوك" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">تنمية مجتمع "خلاصة الكتب"</h3>
+                        <p class="text-gray-400 mb-4">إدارة محتوى وتنمية مجتمع يضم أكثر من 18 ألف متابع، وتقديم قيمة حقيقية من خلال تلخيص الكتب.</p>
+                        <a href="https://www.facebook.com/share/16jf6TYyGf/" target="_blank" rel="noopener noreferrer" class="text-cyan-400 font-semibold hover:underline">زيارة الصفحة <i data-lucide="arrow-left" class="inline-block w-4 h-4"></i></a>
+                    </div>
+                </div>
+                 <div class="glass-card rounded-2xl overflow-hidden group reveal" style="transition-delay: 150ms;">
+                    <img src="https://placehold.co/600x400/0c0a18/FFFFFF?text=TikTok" alt="صورة مشروع حساب تيك توك" class="w-full h-60 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">بناء هوية "Soldier X"</h3>
+                        <p class="text-gray-400 mb-4">صناعة محتوى فيديو إبداعي حقق أكثر من 147 ألف إعجاب، مع التركيز على بناء هوية فريدة وجذابة.</p>
+                        <a href="https://www.tiktok.com/@soldier0x0?_t=ZS-8xcB7XEAC4l&_r=1" target="_blank" rel="noopener noreferrer" class="text-cyan-400 font-semibold hover:underline">مشاهدة الحساب <i data-lucide="arrow-left" class="inline-block w-4 h-4"></i></a>
+                    </div>
+                </div>
+             </div>
+        </section>
+        
+        <!-- =========== Testimonials Section =========== -->
+        <section id="testimonials" class="section py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">ماذا يقولون عني؟</h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="glass-card p-8 rounded-2xl reveal">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full p-1 bg-gradient-to-tr from-cyan-400 to-indigo-500 mr-4 flex-shrink-0">
+                            <div class="bg-[#0c0a18] rounded-full w-full h-full flex items-center justify-center">
+                                <i data-lucide="user" class="w-8 h-8 text-cyan-400"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-bold text-white">علي محمد</p>
+                            <p class="text-sm text-gray-400">صاحب متجر إلكتروني</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"مستوى الإبداع في المحتوى الذي قدمه لنا كان مذهلاً. ساعدنا في الوصول لجمهور جديد وزيادة تفاعلنا بشكل ملحوظ. شريك تسويقي لا غنى عنه."</p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl reveal" style="transition-delay: 150ms;">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full p-1 bg-gradient-to-tr from-cyan-400 to-indigo-500 mr-4 flex-shrink-0">
+                             <div class="bg-[#0c0a18] rounded-full w-full h-full flex items-center justify-center">
+                                <i data-lucide="user" class="w-8 h-8 text-cyan-400"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-bold text-white">فاطمة السيد</p>
+                            <p class="text-sm text-gray-400">صانعة محتوى</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 italic">"فهمه العميق لمنصة تيك توك واستراتيجياته الذكية في صناعة المحتوى الفيروسي كانت سبباً رئيسياً في نمو حسابي. أنصح به بشدة."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== FAQ Section =========== -->
+        <section id="faq" class="section py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">أسئلة شائعة</h2>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="faq-item glass-card rounded-xl overflow-hidden reveal">
+                    <button class="faq-question w-full flex justify-between items-center text-right p-6 font-bold text-lg">
+                        <span>كيف تقيس نجاح الحملات التسويقية؟</span>
+                        <i data-lucide="chevron-down" class="faq-icon w-6 h-6 text-cyan-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-answer px-6 text-gray-300">
+                        <p>النجاح لا يقاس بمؤشر واحد. أعتمد على مجموعة من المؤشرات الرئيسية (KPIs) التي نحددها معاً في مرحلة الاستراتيجية. تشمل هذه المؤشرات الوصول (Reach)، التفاعل (Engagement)، معدل التحويل (Conversion Rate)، والعائد على الاستثمار الإعلاني (ROAS)، مع تقديم تقارير دورية وواضحة.</p>
+                    </div>
+                </div>
+                <div class="faq-item glass-card rounded-xl overflow-hidden reveal" style="transition-delay: 150ms;">
+                    <button class="faq-question w-full flex justify-between items-center text-right p-6 font-bold text-lg">
+                        <span>ما هي مدة تسليم المشاريع عادةً؟</span>
+                        <i data-lucide="chevron-down" class="faq-icon w-6 h-6 text-cyan-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-answer px-6 text-gray-300">
+                        <p>تعتمد مدة المشروع على حجمه ومتطلباته. بعد جلسة الاستكشاف الأولية، أقدم لك جدولاً زمنياً مفصلاً وواضحاً لكل مرحلة من مراحل المشروع. الشفافية والالتزام بالمواعيد من أهم أولوياتي.</p>
+                    </div>
+                </div>
+                <div class="faq-item glass-card rounded-xl overflow-hidden reveal" style="transition-delay: 300ms;">
+                    <button class="faq-question w-full flex justify-between items-center text-right p-6 font-bold text-lg">
+                        <span>هل تقدم خدمات إدارة الحسابات بشكل شهري؟</span>
+                        <i data-lucide="chevron-down" class="faq-icon w-6 h-6 text-cyan-400 transition-transform"></i>
+                    </button>
+                    <div class="faq-answer px-6 text-gray-300">
+                        <p>نعم، أقدم باقات إدارة شهرية لحسابات التواصل الاجتماعي والحملات الإعلانية. هذه الباقات مصممة لضمان النمو المستمر والتواجد الفعال لعلامتك التجارية، وتشمل صناعة المحتوى، النشر، الرد على التفاعلات، وإدارة الإعلانات مع تقارير شهرية.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- =========== Contact Section =========== -->
+        <section id="contact" class="section py-20">
+            <div class="text-center max-w-2xl mx-auto">
+                 <h2 class="text-4xl font-bold text-center mb-4">هل أنت جاهز للخطوة التالية؟</h2>
+                 <p class="text-lg text-gray-300 mb-8">دعنا نتحدث عن رؤيتك وكيف يمكننا تحويلها إلى قصة نجاح. أنا هنا لمساعدتك على النمو.</p>
+                 <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="https://t.me/+nzVRRE6LThpmODg8" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-lg py-3 px-8 rounded-full transition-all transform hover:scale-105 shadow-lg shadow-cyan-500/20">
+                        <i data-lucide="send" class="mr-2 w-5 h-5"></i>
+                        تواصل عبر تليجرام
+                    </a>
+                    <a href="mailto:ahmedallam2827@gmail.com" class="w-full sm:w-auto inline-flex items-center justify-center border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-white font-bold text-lg py-3 px-8 rounded-full transition-all transform hover:scale-105">
+                         <i data-lucide="mail" class="mr-2 w-5 h-5"></i>
+                        تواصل عبر البريد
+                    </a>
+                 </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- =========== Footer =========== -->
+    <footer class="border-t border-white/10 mt-20">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>صُنع بشغف وإبداع. جميع الحقوق محفوظة &copy; 2025.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Structure for Articles (No changes) -->
+
+    <script>
+        // --- Smart Header ---
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // --- FAQ Accordion ---
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const wasOpen = item.classList.contains('open');
+                faqItems.forEach(i => i.classList.remove('open'));
+                if(!wasOpen) {
+                    item.classList.add('open');
+                }
+            });
+        });
+
+        // --- Intersection Observer for all animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if(entry.target.classList.contains('reveal')) {
+                        entry.target.classList.add('visible');
+                    }
+                    if(entry.target.hasAttribute('data-count')) {
+                         animateCount(entry.target);
+                    }
+                    if(entry.target.id === 'stats' && !chartRendered) {
+                        renderGrowthChart();
+                    }
+                     if(entry.target.id === 'process') {
+                        document.getElementById('process-line-progress').style.height = '100%';
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal, #stats, [data-count], #process').forEach(el => observer.observe(el));
+        
+        // --- Other scripts (Lucide, Glow, Modal, Chart, Counter) remain the same ---
+        lucide.createIcons();
+        
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+        
+        const glow1 = document.getElementById('glow1'), glow2 = document.getElementById('glow2');
+        document.addEventListener('mousemove', e => {
+            glow1.style.transform = `translate(${e.clientX * 0.1}px, ${e.clientY * 0.1}px)`;
+            glow2.style.transform = `translate(${e.clientX * -0.05}px, ${e.clientY * -0.05}px)`;
+        });
+
+        let chartRendered = false;
+        function formatNumber(num) {
+            if (num >= 1000000) return (num / 1000000).toFixed(1).replace('.0','') + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(0) + 'K';
+            return num;
+        }
+        function animateCount(element) {
+            const target = +element.getAttribute('data-count');
+            const duration = 2000;
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.innerText = formatNumber(Math.floor(progress * target));
+                if (progress < 1) window.requestAnimationFrame(step);
+            };
+            window.requestAnimationFrame(step);
+        }
+        function renderGrowthChart() {
+             if (chartRendered) return;
+            chartRendered = true;
+            const ctx = document.getElementById('growthChart').getContext('2d');
+            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, 'rgba(34, 211, 238, 0.6)');
+            gradient.addColorStop(1, 'rgba(129, 140, 248, 0.1)');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['11 يونيو', '14 يونيو', '17 يونيو', '20 يونيو', '23 يونيو', '26 يونيو', '27 يونيو'],
+                    datasets: [{
+                        label: 'نمو المشاهدات',
+                        data: [120000, 150000, 130000, 240000, 230000, 350000, 290000],
+                        borderColor: '#22d3ee',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fff',
+                        pointBorderColor: '#22d3ee',
+                        pointHoverRadius: 7,
+                        pointHoverBackgroundColor: '#22d3ee',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, tooltip: { rtl: true, backgroundColor: 'rgba(12, 10, 24, 0.8)', titleFont: { family: 'Cairo', size: 14 }, bodyFont: { family: 'Cairo', size: 12 }, padding: 10, cornerRadius: 8, titleColor: '#fff', bodyColor: '#e0e0e0', displayColors: false, } },
+                    scales: { y: { beginAtZero: true, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: 'rgba(255, 255, 255, 0.7)', font: { family: 'Cairo' }, callback: value => formatNumber(value) } }, x: { grid: { display: false }, ticks: { color: 'rgba(255, 255, 255, 0.7)', font: { family: 'Cairo' } } } }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
